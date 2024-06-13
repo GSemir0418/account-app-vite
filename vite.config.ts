@@ -12,5 +12,10 @@ export default defineConfig({
         rewrite: path => path.replace(/^\/dev/, ''),
       },
     }
+  },
+  resolve: {
+    alias: {
+      '@': '/src',
+    },
   }
 })
