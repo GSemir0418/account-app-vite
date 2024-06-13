@@ -8,10 +8,9 @@ export const TagCard: React.FC<Props> = ({
   sign,
 }) => {
   return (
-    <div className=" max-w-3 text-blue-400 border-2 border-stone-700 border-solid flex flex-col items-center justify-center p-4 rounded-md">
-      <span>{name}</span>
-      <span>{sign}</span>
-      <span>{summary}</span>
+    <div className="max-h-30 w-[30vw] relative flex flex-col items-start p-2 rounded-md shadow-lg bg-neutral-100">
+      <span className='text-md text-neutral-500 font-bold truncate max-w-full'><span>{sign}</span>{name}</span>
+      <span className='text-sm text-neutral-400 pt-2'>{summary}</span>
     </div>
   )
 }
