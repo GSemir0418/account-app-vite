@@ -1,8 +1,8 @@
 import http from './http'
-import { TagSummary } from '@/types/model'
+import { Tag, TagSummary } from '@/types/model'
 
 export function getAllTags() {
-  return http.get('/tags')
+  return http.get<{resources: Tag[]}>('/tags')
 }
 
 export function createTag(tag: { name: string, sign: string, userId?: number, kind?: string}) {
