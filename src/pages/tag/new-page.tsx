@@ -44,7 +44,7 @@ export const NewTagPage: React.FC<Props> = () => {
     try {
       await createTag(formData)
       alert('创建成功')
-      nav('/')
+      nav(-1)
     }
     catch (error) {
       alert('Error creating tag')
@@ -151,9 +151,9 @@ export const NewTagPage: React.FC<Props> = () => {
           >
             Emoji
           </label>
-          {emojiPickerVisible && <EmojiPicker width='100%' onEmojiClick={handleEmojiSelect} />}
+          {emojiPickerVisible && <EmojiPicker previewConfig={{ showPreview: false }} width='100%' height={300} onEmojiClick={handleEmojiSelect} />}
         </div>
-        <button className='w-full rounded-md bg-teal-500 px-6 py-1.5 text-center text-md text-white duration-300' onClick={handleSubmit}>保存</button>
+        <button className='w-full rounded-md bg-teal-500 px-6 py-1.5 text-center text-md text-white duration-300'>保存</button>
       </form>
     </div>
   )
