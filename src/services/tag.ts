@@ -5,11 +5,12 @@ export function getAllTags() {
   return http.get('/tags')
 }
 
-export function createTag(tag: { name: string, sign: string, userId?: number }) {
-  tag.userId = 1
+export function createTag(tag: { name: string, sign: string, userId?: number, kind?: string}) {
+  tag.userId = 1001
+  tag.kind = 'expense'
   return http.post('/tags', tag)
 }
 
 export function getSummaryWithTags(month: string) {
-  return http.get<{resources: TagSummary[]}>(`api/v1/tags/summary?month=${month}`)
+  return http.get<{resources: TagSummary[]}>(`/tags/summary?month=${month}`)
 }
