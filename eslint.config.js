@@ -6,6 +6,7 @@ export default antfu({
     'no-console': 'off',
   },
   stylistic: {
-    semi: false
-  }
+    semi: false,
+    singleQuote: true,
+  },
 })

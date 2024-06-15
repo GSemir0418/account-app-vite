@@ -1,9 +1,9 @@
 import {
   createBrowserRouter,
 } from 'react-router-dom'
-import { HomePage } from '../pages/home/page'
-import { NewItemPage } from '../pages/item/new-page'
-import { NewTagPage } from '../pages/tag/new-page'
+import { HomePage } from '../pages/home/home-page'
+import { NewItemPage } from '../pages/item/new-item-page'
+import { NewTagPage } from '../pages/tag/new-tag-page'
 
 export const router = createBrowserRouter([
   {
