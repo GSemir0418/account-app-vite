@@ -8,15 +8,16 @@ import { Radio } from '@/components/form/radio'
 import { Input } from '@/components/form/input'
 
 interface Props { }
+
 export const NewItemPage: React.FC<Props> = () => {
   const nav = useNavigate()
 
   const [formData, setFormData] = useState<{
     kind: 'expense' | 'income'
-    amount: number
+    amount: number | undefined
     tag: Tag | null
   }>({
-    amount: 0,
+    amount: undefined,
     kind: 'expense',
     tag: null,
   })
@@ -25,16 +26,11 @@ export const NewItemPage: React.FC<Props> = () => {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
-    setFormData({
-      ...formData,
+    setFormData(prev => ({
+      ...prev,
       [name]: value,
-    })
-    if (name === 'kind') {
-      setFormData({
-        ...formData,
-        tag: null,
-      })
-    }
+      tag: name === 'kind' ? null : prev.tag,
+    }))
   }
 
   const handleSubmit = async (e: FormEvent) => {
@@ -70,10 +66,10 @@ export const NewItemPage: React.FC<Props> = () => {
 
   const handleTagSelect = (tag: Tag) => {
     setTagPickerVisible(false)
-    setFormData({
-      ...formData,
+    setFormData(prev => ({
+      ...prev,
       tag,
-    })
+    }))
   }
 
   return (
@@ -100,9 +96,10 @@ export const NewItemPage: React.FC<Props> = () => {
         />
         <Input
           label="标签"
-          name="tagId"
+          name="tagName"
+          key="tagName"
           readOnly
-          value={formData.tag?.name}
+          value={formData.tag?.name ?? ''}
           onClick={handleTagClick}
           picker={tagPickerVisible && <TagPicker kind={formData.kind} onTagClick={handleTagSelect} />}
         />
@@ -113,7 +110,7 @@ export const NewItemPage: React.FC<Props> = () => {
           value={formData.amount}
           onChange={handleChange}
         />
-        <button className="w-full mt-4 rounded-md bg-teal-500 px-6 py-1.5 text-center text-md text-white duration-300" type="submit">保存</button>
+        <button className="w-full rounded-md bg-teal-500 px-6 py-1.5 text-center text-md text-white duration-300" type="submit">保存</button>
       </form>
     </div>
   )
