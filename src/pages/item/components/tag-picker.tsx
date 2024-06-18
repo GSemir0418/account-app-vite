@@ -1,8 +1,8 @@
-import { getAllTags } from "@/services/tag"
-import { Tag } from "@/types/model"
-import React from "react"
-import { useNavigate } from "react-router-dom"
-import useSWR from "swr"
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
+import useSWR from 'swr'
+import type { Tag } from '@/types/model'
+import { getAllTags } from '@/services/tag'
 
 interface Props {
   onTagClick: (tag: Tag) => void
@@ -17,9 +17,11 @@ export const TagPicker: React.FC<Props> = ({ onTagClick, kind }) => {
     nav('/tags/new')
   }
 
-  if (error) return <div>Failed to load tags</div>
+  if (error)
+    return <div>Failed to load tags</div>
 
-  if (isLoading) return <div>Loading tags...</div>
+  if (isLoading)
+    return <div>Loading tags...</div>
 
   return (
     <div className="mt-1 w-full bg-teal-100 opacity-50 max-h-40 overflow-auto grid grid-cols-3 gap-2">
