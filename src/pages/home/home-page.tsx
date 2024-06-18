@@ -21,7 +21,7 @@ export const HomePage: React.FC<Props> = () => {
 
   return (
     <div className="h-full flex flex-col items-center">
-      <div className="text-2xl text-teal-500 font-bold m-10">这可能是一个记账软件？</div>
+      <div className="text-2xl text-teal-500 m-10 font-['ZiHunShiGuang']">这可能是一个记账软件？</div>
       <div className="text-teal-500 border-b-2 border-teal-200 mb-2" onClick={() => setIsDatePickerOpen(true)}>{yearMonth}</div>
       {isLoading && 'loading...'}
       {!data?.data.resources

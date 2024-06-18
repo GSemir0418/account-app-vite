@@ -59,9 +59,9 @@ export const NewTagPage: React.FC<Props> = () => {
   }
 
   return (
-    <div className='h-full flex flex-col items-center mr-4 ml-4'>
-      <div className='text-2xl text-teal-500 font-bold m-10'>创建标签</div>
-      <form onSubmit={handleSubmit} className='w-full'>
+    <div className="h-full flex flex-col items-center mr-4 ml-4">
+      <div className="text-2xl text-teal-500 font-['ZiHunShiGuang'] m-10">创建标签</div>
+      <form onSubmit={handleSubmit} className="w-full">
         <Radio
           props={[
             {
@@ -69,33 +69,33 @@ export const NewTagPage: React.FC<Props> = () => {
               value: 'income',
               checked: formData.kind === 'income',
               label: '收入',
-              onChange: handleChange
+              onChange: handleChange,
             },
             {
               name: 'kind',
               value: 'expense',
               checked: formData.kind === 'expense',
               label: '支出',
-              onChange: handleChange
-            }
+              onChange: handleChange,
+            },
           ]}
         />
         <Input
-          label='标签名称'
-          name='name'
+          label="标签名称"
+          name="name"
           value={formData.name}
           onChange={handleChange}
         />
         <Input
-          label='Emoji'
-          name='emoji'
+          label="Emoji"
+          name="emoji"
           onChange={handleChange}
           value={formData.sign}
           readOnly
           onClick={handleEmojiClick}
-          picker={emojiPickerVisible && <EmojiPicker previewConfig={{ showPreview: false }} width='100%' height={300} onEmojiClick={handleEmojiSelect} />}
+          picker={emojiPickerVisible && <EmojiPicker previewConfig={{ showPreview: false }} width="100%" height={300} onEmojiClick={handleEmojiSelect} />}
         />
-        <button className='w-full rounded-md bg-teal-500 px-6 py-1.5 text-center text-md text-white duration-300'>保存</button>
+        <button className="w-full rounded-md bg-teal-500 px-6 py-1.5 text-center text-md text-white duration-300">保存</button>
       </form>
     </div>
   )

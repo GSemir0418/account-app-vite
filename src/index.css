@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  @font-face {
+    font-family: ZiHunShiGuang;
+    src: url(/src/assets/fonts/ZiHunShiGuang.ttf) format('truetype');
+  }
+
+  @font-face {
+    font-family: Haiyanzhishidongdong;
+    src: url(/src/assets/fonts/Haiyanzhishidongdong-Regular-2.ttf) format('truetype');
+  }
+}
+
 html,
 body,
 :root,
@@ -10,6 +22,7 @@ body,
   padding: 0;
   box-sizing: border-box;
   height: 100vh;
+  font-family: Haiyanzhishidongdong;
 }
 
 #root {

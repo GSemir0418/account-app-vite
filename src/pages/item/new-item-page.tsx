@@ -74,7 +74,7 @@ export const NewItemPage: React.FC<Props> = () => {
 
   return (
     <div className="h-full flex flex-col items-center mr-4 ml-4">
-      <div className="text-2xl text-teal-500 font-bold m-10">记一笔</div>
+      <div className="text-2xl text-teal-500 font-['ZiHunShiGuang'] m-10">记一笔</div>
       <form onSubmit={handleSubmit} className="w-full">
         <Radio
           props={[
