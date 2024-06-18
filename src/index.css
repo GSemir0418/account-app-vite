@@ -2,9 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body, :root, #root {
+html,
+body,
+:root,
+#root {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  height: 100vh; 
+  height: 100vh;
+}
+
+#root {
+  background-image: url(/src/assets/bg.png);
+  background-position: top;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
