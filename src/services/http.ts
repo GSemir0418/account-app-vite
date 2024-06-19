@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { router } from '@/router/router'
 
 const http = axios.create({
   // baseURL: "http://localhost:8080/api/v1",
@@ -11,6 +12,9 @@ const http = axios.create({
 http.interceptors.response.use(
   response => response,
   (error) => {
+    if (error.response.status === 401)
+      router.navigate('/sign-in')
+
     return Promise.reject(error)
   },
 )
