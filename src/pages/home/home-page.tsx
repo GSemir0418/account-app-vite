@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import useSWR from 'swr'
+import dayjs from 'dayjs'
 import { getSummaryWithTags } from '../../services/tag'
 import { TagCard } from './components/tag-card'
 import { AddButton } from './components/add-button'
@@ -9,7 +10,7 @@ import { DatePickerDrawer } from './components/date-picker-drawer'
 interface Props { }
 export const HomePage: React.FC<Props> = () => {
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false)
-  const [yearMonth, setYearMonth] = useState('2024-06')
+  const [yearMonth, setYearMonth] = useState(dayjs().format('YYYY-MM'))
   const { data, error, isLoading } = useSWR(['getSummaryWithTags', yearMonth], ([_, yearMonth]) => getSummaryWithTags(yearMonth))
 
   const onSubmit = (yearMonth: string) => {
