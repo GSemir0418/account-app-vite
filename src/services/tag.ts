@@ -6,7 +6,6 @@ export function getAllTags() {
 }
 
 export function createTag(tag: { name: string, sign: string, userId?: number, kind?: string }) {
-  tag.userId = 1001
   return http.post('/tags', tag)
 }
 
