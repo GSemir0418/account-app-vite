@@ -22,10 +22,9 @@ export const router = createBrowserRouter([
         throw error
       }
       const response = await getSummaryWithTags(dayjs().format('YYYY-MM')).catch(onError)
-      if (response.data.resources.length > 0)
-        // 这里返回的数据可以在组件中使用 useLoaderData 获取到
-        return response.data
-        // 可以在这里使用 swr 的 preload 方法预请求页面数据
+      // 这里返回的数据可以在组件中使用 useLoaderData 获取到
+      return response.data
+      // 可以在这里使用 swr 的 preload 方法预请求页面数据
     },
     element: <HomePage />,
   },
