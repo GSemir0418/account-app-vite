@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import useSWR from 'swr'
 import { getSummaryWithTags } from '../../services/tag'
@@ -7,6 +7,7 @@ import { AddButton } from './components/add-button'
 import { DatePickerDrawer } from './components/date-picker-drawer'
 import { Popover } from './components/popover'
 import { useHomeStore } from '@/stores/useHomeStore'
+import type { TagSummary } from '@/types/model'
 
 interface Props { }
 export const HomePage: React.FC<Props> = () => {
@@ -26,6 +27,21 @@ export const HomePage: React.FC<Props> = () => {
     setShowModal(false)
   }
 
+  const dataGroupByKind = useMemo(() => {
+    const _data = data?.data.resources
+    if (!_data || _data.length === 0)
+      return []
+    const income: TagSummary[] = []
+    const expense: TagSummary[] = []
+    _data.forEach((tag) => {
+      if (tag.kind === 'income')
+        income.push(tag)
+      else
+        expense.push(tag)
+    })
+    return income.concat(expense)
+  }, [data])
+
   if (error)
     return <div>failed to load data</div>
 
@@ -34,7 +50,7 @@ export const HomePage: React.FC<Props> = () => {
       <div className="text-2xl text-teal-500 m-10 font-['ZiHunShiGuang']">这可能是一个记账软件？</div>
       <div className="text-teal-500 border-b-2 border-teal-200 mb-2" onClick={() => setIsDatePickerOpen(true)}>{yearMonth}</div>
       {isLoading && 'loading...'}
-      {!data?.data.resources
+      {dataGroupByKind.length === 0
         ? (
           <div className="text-teal-700">
             暂无记录，去
@@ -43,7 +59,7 @@ export const HomePage: React.FC<Props> = () => {
           )
         : (
           <div className="grid grid-cols-3 gap-2">
-            {data?.data.resources.map(tag => (
+            {dataGroupByKind.map(tag => (
               <TagCard {...tag} key={tag.id} />
             ))}
           </div>
