@@ -9,6 +9,7 @@ import { NewTagPage } from '../pages/tag/new-tag-page'
 import { ErrorPage, ErrorUnauthorized } from '@/components/error-page'
 import { getSummaryWithTags } from '@/services/tag'
 import { SignInPage } from '@/pages/signin/signin-page'
+import { TagDetailPage } from '@/pages/tag/tag-detail-page'
 
 export const router = createBrowserRouter([
   {
@@ -33,8 +34,11 @@ export const router = createBrowserRouter([
     element: <NewItemPage />,
   },
   {
-    path: '/tags/new',
-    element: <NewTagPage />,
+    path: '/tags',
+    children: [
+      { path: ':id', element: <TagDetailPage /> },
+      { path: 'new', element: <NewTagPage /> },
+    ],
   },
   { path: '/sign-in', element: <SignInPage /> },
 ])
