@@ -15,6 +15,8 @@ export const HomePage: React.FC<Props> = () => {
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false)
   const { data, error, isLoading } = useSWR(['getSummaryWithTags', yearMonth], ([_, yearMonth]) => getSummaryWithTags(yearMonth))
   const [showModal, setShowModal] = useState(false)
+  const [total, setTotal] = useState({ income: 0, expense: 0 })
+
   const onSubmit = (yearMonth: string) => {
     setYearMonth(yearMonth)
   }
@@ -39,6 +41,10 @@ export const HomePage: React.FC<Props> = () => {
       else
         expense.push(tag)
     })
+    setTotal({
+      income: income.reduce((sum, tag) => sum + tag.summary / 1000, 0),
+      expense: expense.reduce((sum, tag) => sum + tag.summary / 1000, 0),
+    })
     return income.concat(expense)
   }, [data])
 
@@ -49,6 +55,16 @@ export const HomePage: React.FC<Props> = () => {
     <div className="h-full flex flex-col items-center">
       <div className="text-2xl text-teal-500 m-10 font-['ZiHunShiGuang']">这可能是一个记账软件？</div>
       <div className="text-teal-500 border-b-2 border-teal-200 mb-2" onClick={() => setIsDatePickerOpen(true)}>{yearMonth}</div>
+      <div className="w-full flex justify-between px-4 mb-2 text-sm text-zinc-500">
+        <span>
+          当月总支出
+          <span className="text-red-500 ml-2">{total.expense}</span>
+        </span>
+        <span>
+          当月总收入
+          <span className="text-teal-500 ml-2">{total.income}</span>
+        </span>
+      </div>
       {isLoading && 'loading...'}
       {dataGroupByKind.length === 0
         ? (

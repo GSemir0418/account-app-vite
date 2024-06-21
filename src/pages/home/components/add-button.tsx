@@ -28,7 +28,7 @@ export const AddButton: React.FC<Props> = ({ onAddClick }) => {
 
   return (
     <animated.button
-      className="flex justify-center items-center w-14 h-14 shadow-2xl rounded-full fixed left-1 bottom-20 bg-teal-400 text-white text-3xl"
+      className="flex justify-center items-center w-14 h-14 shadow rounded-full fixed left-1 bottom-20 bg-teal-300 text-white text-3xl"
       style={props}
       onClick={handleClick}
     >
