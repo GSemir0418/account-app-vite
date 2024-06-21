@@ -13,6 +13,6 @@ export function getSummaryWithTags(month: string) {
   return http.get<{ resources: TagSummary[] }>(`/tags/summary?month=${month}`)
 }
 
-export function getItemsByTagId(id: number) {
+export function getTagDetailByTagId(id: number) {
   return http.get<TagDetail>(`/tags/${id}`)
 }
