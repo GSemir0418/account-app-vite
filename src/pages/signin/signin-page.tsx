@@ -2,6 +2,7 @@ import { type ChangeEvent, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Input, InputCode } from '@/components/form/input'
 import { sendCode, signIn } from '@/services/session'
+import { Header } from '@/components/header'
 
 export function SignInPage() {
   const [formData, setFormData] = useState({
@@ -59,7 +60,7 @@ export function SignInPage() {
 
   return (
     <div className="h-full flex flex-col items-center mr-4 ml-4">
-      <div className="text-2xl text-teal-500 font-['ZiHunShiGuang'] m-10">登录</div>
+      <Header title="登录" isBackIcon={false} />
       <form onSubmit={handleSubmit} className="w-full">
         <Input
           label="邮箱"

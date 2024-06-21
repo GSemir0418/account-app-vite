@@ -6,6 +6,7 @@ import type { MouseDownEvent } from 'emoji-picker-react/dist/config/config'
 import { createTag } from '../../services/tag'
 import { Input } from '@/components/form/input'
 import { Radio } from '@/components/form/radio'
+import { Header } from '@/components/header'
 
 interface Props { }
 export const NewTagPage: React.FC<Props> = () => {
@@ -67,7 +68,7 @@ export const NewTagPage: React.FC<Props> = () => {
 
   return (
     <div className="h-full flex flex-col items-center mr-4 ml-4">
-      <div className="text-2xl text-teal-500 font-['ZiHunShiGuang'] m-10">创建标签</div>
+      <Header title="创建标签" />
       <form onSubmit={handleSubmit} className="w-full">
         <Radio
           props={[

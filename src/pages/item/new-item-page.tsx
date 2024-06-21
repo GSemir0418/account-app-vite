@@ -6,6 +6,7 @@ import { createItem } from '@/services/item'
 import type { Tag } from '@/types/model'
 import { Radio } from '@/components/form/radio'
 import { Input } from '@/components/form/input'
+import { Header } from '@/components/header'
 
 interface Props { }
 
@@ -74,7 +75,7 @@ export const NewItemPage: React.FC<Props> = () => {
 
   return (
     <div className="h-full flex flex-col items-center mr-4 ml-4">
-      <div className="text-2xl text-teal-500 font-['ZiHunShiGuang'] m-10">记一笔</div>
+      <Header title="记一笔" />
       <form onSubmit={handleSubmit} className="w-full">
         <Radio
           props={[
