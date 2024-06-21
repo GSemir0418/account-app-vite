@@ -1,6 +1,6 @@
 import type { ChangeEvent, FormEvent } from 'react'
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import EmojiPicker from 'emoji-picker-react'
 import type { MouseDownEvent } from 'emoji-picker-react/dist/config/config'
 import { createTag } from '../../services/tag'
@@ -33,6 +33,9 @@ export const NewTagPage: React.FC<Props> = () => {
     })
   }
 
+  const [searchParams] = useSearchParams()
+  const fromUrl = searchParams.get('from')
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     // 暂时在这里做校验，TODO: 后续会集成到组件中
@@ -47,7 +50,11 @@ export const NewTagPage: React.FC<Props> = () => {
     try {
       await createTag(formData)
       alert('创建成功')
-      nav(-1)
+
+      if (fromUrl)
+        nav(fromUrl)
+      else
+        nav(-1)
     }
     catch (error) {
       alert('Error creating tag')

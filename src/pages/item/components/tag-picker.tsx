@@ -14,7 +14,7 @@ export const TagPicker: React.FC<Props> = ({ onTagClick, kind }) => {
   const { data, error, isLoading } = useSWR('getAllTags', getAllTags)
 
   const handleCreateTag = () => {
-    nav('/tags/new')
+    nav('/tags/new?from=/items/new')
   }
 
   if (error)
