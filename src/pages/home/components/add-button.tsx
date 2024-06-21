@@ -1,36 +1,37 @@
 import { animated, useSpring } from '@react-spring/web'
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useState } from 'react'
 
-interface Props { }
-export const AddButton: React.FC<Props> = () => {
-  const navigate = useNavigate()
+interface Props {
+  onAddClick: () => void
+}
+export const AddButton: React.FC<Props> = ({ onAddClick }) => {
+  const [clicked, setClicked] = useState(false)
 
-  const [props, set] = useSpring(() => ({
+  const props = useSpring({
     to: {
-      transform: 'scale(1)',
-      opacity: '1',
+      transform: clicked ? 'scale(1.2)' : 'scale(1)',
     },
     from: {
-      transform: 'scale(0)',
-      opacity: '1',
+      transform: 'scale(1)',
     },
-  }))
+    reset: clicked,
+    onRest: () => clicked && setClicked(false),
+    config: { duration: 80 },
+  })
 
-  const expandAndNavigate = () => {
-    set({
-      to: {
-        transform: 'scale(30)',
-        opacity: '0',
-      },
-      config: { duration: 500 },
-    })
-
-    setTimeout(() => navigate('/items/new'), 200)
+  const handleClick = () => {
+    setClicked(true)
+    setTimeout(() => {
+      onAddClick()
+    }, 100)
   }
 
   return (
-    <animated.button className="flex justify-center items-center w-14 h-14 shadow-2xl rounded-full fixed left-1 bottom-20 bg-teal-400 text-white text-3xl" style={props} onClick={expandAndNavigate}>
+    <animated.button
+      className="flex justify-center items-center w-14 h-14 shadow-2xl rounded-full fixed left-1 bottom-20 bg-teal-400 text-white text-3xl"
+      style={props}
+      onClick={handleClick}
+    >
       <span className="-translate-y-1">+</span>
     </animated.button>
   )

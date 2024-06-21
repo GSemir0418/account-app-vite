@@ -6,15 +6,24 @@ import { getSummaryWithTags } from '../../services/tag'
 import { TagCard } from './components/tag-card'
 import { AddButton } from './components/add-button'
 import { DatePickerDrawer } from './components/date-picker-drawer'
+import { Popover } from './components/popover'
 
 interface Props { }
 export const HomePage: React.FC<Props> = () => {
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false)
   const [yearMonth, setYearMonth] = useState(dayjs().format('YYYY-MM'))
   const { data, error, isLoading } = useSWR(['getSummaryWithTags', yearMonth], ([_, yearMonth]) => getSummaryWithTags(yearMonth))
-
+  const [showModal, setShowModal] = useState(false)
   const onSubmit = (yearMonth: string) => {
     setYearMonth(yearMonth)
+  }
+
+  const handleAddButtonClick = () => {
+    setShowModal(true)
+  }
+
+  const handlePopoverClose = () => {
+    setShowModal(false)
   }
 
   if (error)
@@ -31,16 +40,17 @@ export const HomePage: React.FC<Props> = () => {
             暂无记录，去
             <Link className="text-blue-500" to="/tags/new">创建标签</Link>
           </div>
-          )
+        )
         : (
           <div className="grid grid-cols-3 gap-2">
             {data?.data.resources.map(tag => (
               <TagCard {...tag} key={tag.id} />
             ))}
           </div>
-          )}
-      <AddButton />
+        )}
+      <AddButton onAddClick={handleAddButtonClick} />
       <DatePickerDrawer isOpen={isDatePickerOpen} onClose={() => setIsDatePickerOpen(false)} onChange={onSubmit} />
+      <Popover show={showModal} onClose={handlePopoverClose} />
     </div>
   )
 }
