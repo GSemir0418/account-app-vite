@@ -54,15 +54,15 @@ export const HomePage: React.FC<Props> = () => {
   return (
     <div className="h-full flex flex-col items-center">
       <div className="text-2xl text-teal-500 m-10 font-['ZiHunShiGuang']">这可能是一个记账软件？</div>
-      <div className="text-teal-500 border-b-2 border-teal-200 mb-2" onClick={() => setIsDatePickerOpen(true)}>{yearMonth}</div>
+      <div className="text-teal-500 border-b-2 text-xl border-teal-200 mb-2" onClick={() => setIsDatePickerOpen(true)}>{yearMonth}</div>
       <div className="w-full flex justify-between px-4 mb-2 text-sm text-zinc-500">
         <span>
           当月总支出
-          <span className="text-red-500 ml-2">{total.expense}</span>
+          <span className="text-red-500 ml-2">{total.expense.toFixed(2)}</span>
         </span>
         <span>
           当月总收入
-          <span className="text-teal-500 ml-2">{total.income}</span>
+          <span className="text-teal-500 ml-2">{total.income.toFixed(2)}</span>
         </span>
       </div>
       {isLoading && 'loading...'}
@@ -72,14 +72,14 @@ export const HomePage: React.FC<Props> = () => {
             暂无记录，去
             <Link className="text-blue-500" to="/tags/new">创建标签</Link>
           </div>
-          )
+        )
         : (
           <div className="grid grid-cols-3 gap-2">
             {dataGroupByKind.map(tag => (
               <TagCard {...tag} key={tag.id} />
             ))}
           </div>
-          )}
+        )}
       <AddButton onAddClick={handleAddButtonClick} />
       <DatePickerDrawer isOpen={isDatePickerOpen} onClose={() => setIsDatePickerOpen(false)} onChange={onSubmit} />
       <Popover show={showModal} onClose={handlePopoverClose} />
