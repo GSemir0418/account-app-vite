@@ -3,19 +3,22 @@ import React, { useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import EmojiPicker from 'emoji-picker-react'
 import type { MouseDownEvent } from 'emoji-picker-react/dist/config/config'
-import { createTag } from '../../services/tag'
+import { createTag, updateTag } from '../../services/tag'
 import { Input } from '@/components/form/input'
 import { Radio } from '@/components/form/radio'
 import { Header } from '@/components/header'
+import { useTagEditStore } from '@/stores/useTagEditStore'
 
 interface Props { }
-export const NewTagPage: React.FC<Props> = () => {
+export const TagForm: React.FC<Props> = () => {
   const nav = useNavigate()
+  const { editTag, setEditTag } = useTagEditStore()
+  const isEdit = editTag !== null
   const [emojiPickerVisible, setEmojiPickerVisible] = useState(false)
   const [formData, setFormData] = useState({
-    name: '',
-    sign: '',
-    kind: 'expense',
+    name: isEdit ? editTag.name : '',
+    sign: isEdit ? editTag.sign : '',
+    kind: isEdit ? editTag.kind : 'expense',
   })
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -49,8 +52,15 @@ export const NewTagPage: React.FC<Props> = () => {
       return
     }
     try {
-      await createTag(formData)
-      alert('创建成功')
+      if (isEdit) {
+        await updateTag({ ...formData, id: editTag.id })
+        alert('编辑成功')
+        setEditTag(null)
+      }
+      else {
+        await createTag(formData)
+        alert('创建成功')
+      }
 
       if (fromUrl)
         nav(fromUrl)
@@ -58,7 +68,7 @@ export const NewTagPage: React.FC<Props> = () => {
         nav(-1)
     }
     catch (error) {
-      alert('Error creating tag')
+      alert('Error creating or editing tag')
     }
   }
 
@@ -68,7 +78,7 @@ export const NewTagPage: React.FC<Props> = () => {
 
   return (
     <div className="h-full flex flex-col items-center mr-4 ml-4">
-      <Header title="创建标签" />
+      <Header title={isEdit ? '编辑标签' : '创建标签'} />
       <form onSubmit={handleSubmit} className="w-full">
         <Radio
           props={[
@@ -78,6 +88,7 @@ export const NewTagPage: React.FC<Props> = () => {
               checked: formData.kind === 'income',
               label: '收入',
               onChange: handleChange,
+              disabled: isEdit,
             },
             {
               name: 'kind',
@@ -85,6 +96,7 @@ export const NewTagPage: React.FC<Props> = () => {
               checked: formData.kind === 'expense',
               label: '支出',
               onChange: handleChange,
+              disabled: isEdit,
             },
           ]}
         />

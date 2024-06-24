@@ -5,7 +5,7 @@ import type { AxiosError } from 'axios'
 import dayjs from 'dayjs'
 import { HomePage } from '../pages/home/home-page'
 import { NewItemPage } from '../pages/item/new-item-page'
-import { NewTagPage } from '../pages/tag/new-tag-page'
+import { TagForm } from '../pages/tag/tag-form'
 import { ErrorPage, ErrorUnauthorized } from '@/components/error-page'
 import { getSummaryWithTags } from '@/services/tag'
 import { SignInPage } from '@/pages/signin/signin-page'
@@ -37,7 +37,8 @@ export const router = createBrowserRouter([
     path: '/tags',
     children: [
       { path: ':id', element: <TagDetailPage /> },
-      { path: 'new', element: <NewTagPage /> },
+      { path: 'new', element: <TagForm /> },
+      { path: 'edit', element: <TagForm /> },
     ],
   },
   { path: '/sign-in', element: <SignInPage /> },

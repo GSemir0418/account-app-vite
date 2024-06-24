@@ -5,7 +5,7 @@ export function getAllTags() {
   return http.get<{ resources: Tag[] }>('/tags')
 }
 
-export function createTag(tag: { name: string, sign: string, userId?: number, kind?: string }) {
+export function createTag(tag: { name: string, sign: string, kind?: string }) {
   return http.post('/tags', tag)
 }
 
@@ -15,4 +15,8 @@ export function getSummaryWithTags(month: string) {
 
 export function getTagDetailByTagId(id: number) {
   return http.get<TagDetail>(`/tags/${id}`)
+}
+
+export function updateTag(tag: Tag) {
+  return http.patch(`/tags/${tag.id}`, tag)
 }

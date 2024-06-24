@@ -6,6 +6,7 @@ interface RadioProps {
   checked: boolean
   label: string
   onChange: (e: ChangeEvent<HTMLInputElement>) => void
+  disabled: boolean
 }
 
 export const Radio: React.FC<{ props: RadioProps[] }> = ({ props }) => {
@@ -20,6 +21,7 @@ export const Radio: React.FC<{ props: RadioProps[] }> = ({ props }) => {
             value={radio.value}
             checked={radio.checked}
             onChange={radio.onChange}
+            disabled={radio.disabled}
           />
           {radio.label}
         </label>
