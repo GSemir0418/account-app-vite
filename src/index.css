@@ -23,6 +23,7 @@ body,
   box-sizing: border-box;
   height: 100vh;
   font-family: Haiyanzhishidongdong;
+  overflow: hidden;
 }
 
 #root {
@@ -31,4 +32,14 @@ body,
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+/* 隐藏滚动条 */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
