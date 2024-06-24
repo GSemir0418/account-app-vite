@@ -20,3 +20,7 @@ export function getTagDetailByTagId(id: number) {
 export function updateTag(tag: Tag) {
   return http.patch(`/tags/${tag.id}`, tag)
 }
+
+export function removeTag(id: number) {
+  return http.delete(`/tags/${id}`)
+}

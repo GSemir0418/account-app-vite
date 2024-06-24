@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import type { TagSummary } from '../../../types/model'
-import { getTagDetailByTagId } from '@/services/tag'
+import { getTagDetailByTagId, removeTag } from '@/services/tag'
 import { useTagDetailStore } from '@/stores/useTagDetailStore'
 import { LongPressable } from '@/components/long-pressable'
 import { Modal } from '@/components/modal'
@@ -39,9 +39,18 @@ export const TagCard: React.FC<Props> = ({
     setModalShow(true)
   }
 
-  const handleTagDelete = () => {
+  const handleTagDelete = async () => {
     const yes = confirm('删除标签同时会删除全部关联账目，确定删除吗？')
-    console.log(yes)
+    if (yes) {
+      try {
+        await removeTag(id)
+        alert('删除成功')
+        nav(0)
+      }
+      catch {
+        alert('error delete tag')
+      }
+    }
   }
 
   const handleTagEdit = () => {
