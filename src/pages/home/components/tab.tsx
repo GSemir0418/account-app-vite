@@ -75,11 +75,11 @@ export const Tab: React.FC<Props> = ({ tabList }) => {
         {tabList.map(tab => (
           <span
             key={tab.key}
-            className={`${activeKey === tab.key ? ' border-b-2 border-teal-200 text-zinc-600 text-xl' : ''}`}
+            className={`${activeKey === tab.key ? 'border-b-2 border-teal-200 text-zinc-600 text-xl' : 'opacity-50'}`}
             onClick={() => handleTabClick(tab.key as string)}
           >
             {tab.label1}
-            <span className={tab.className}>{tab.label2}</span>
+            <span className={`${tab.className} text-sm`}>{tab.label2}</span>
           </span>
         ))}
       </div>
