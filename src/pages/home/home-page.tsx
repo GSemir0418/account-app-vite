@@ -55,10 +55,12 @@ export const HomePage: React.FC<Props> = () => {
       <div className="text-2xl text-teal-500 m-10 font-['ZiHunShiGuang']">这可能是一个记账软件？</div>
       <div className="text-teal-500 border-b-2 text-xl border-teal-200 mb-2" onClick={() => setIsDatePickerOpen(true)}>{yearMonth}</div>
       {isLoading && 'loading...'}
-      <Tab tabList={[
-        { key: 'expense', label1: '支出', label2: total.expense.toFixed(2), className: 'text-red-500 ml-2', value: dataGroupByKind.expense },
-        { key: 'income', label1: '收入', label2: total.income.toFixed(2), className: 'text-teal-500 ml-2', value: dataGroupByKind.income },
-      ]}
+      <Tab
+        defaultKey="expense"
+        tabList={[
+          { key: 'expense', label1: '支出', label2: total.expense.toFixed(2), className: 'text-red-500 ml-2', value: dataGroupByKind.expense },
+          { key: 'income', label1: '收入', label2: total.income.toFixed(2), className: 'text-teal-500 ml-2', value: dataGroupByKind.income },
+        ]}
       />
       <AddButton onAddClick={handleAddButtonClick} />
       <DatePickerDrawer isOpen={isDatePickerOpen} onClose={() => setIsDatePickerOpen(false)} onChange={onSubmit} />

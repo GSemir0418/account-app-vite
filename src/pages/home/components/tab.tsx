@@ -3,14 +3,15 @@ import { Link } from 'react-router-dom'
 import { TagCard } from './tag-card'
 import type { TagSummary } from '@/types/model'
 
-interface Props {
+interface TabProps<T extends React.Key> {
   tabList: {
-    key: React.Key
+    key: T
     label1: string
     label2: string
     className: string
     value: TagSummary[]
   }[]
+  defaultKey: T
 }
 
 interface TabCardProps {
@@ -39,8 +40,9 @@ export const TabCard: React.FC<TabCardProps> = ({ tagList, id }) => {
   )
 }
 
-export const Tab: React.FC<Props> = ({ tabList }) => {
-  const [activeKey, setActiveKey] = useState('expense')
+export function Tab<T extends React.Key>(props: TabProps<T>) {
+  const { defaultKey, tabList } = props
+  const [activeKey, setActiveKey] = useState(defaultKey)
   const observer = useRef<IntersectionObserver>()
 
   useEffect(() => {
@@ -48,7 +50,7 @@ export const Tab: React.FC<Props> = ({ tabList }) => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting)
-            setActiveKey(entry.target.id)
+            setActiveKey(entry.target.id as T)
         })
       },
       { threshold: 0.5 },
@@ -64,7 +66,7 @@ export const Tab: React.FC<Props> = ({ tabList }) => {
     }
   }, [])
 
-  const handleTabClick = (key: string) => {
+  const handleTabClick = (key: T) => {
     document.getElementById(tabList.find(tab => tab.key === key)?.key as string)?.scrollIntoView({ behavior: 'smooth', block: 'end' })
     setActiveKey(key)
   }
@@ -76,7 +78,7 @@ export const Tab: React.FC<Props> = ({ tabList }) => {
           <span
             key={tab.key}
             className={`${activeKey === tab.key ? 'border-b-2 border-teal-200 text-zinc-600 text-xl' : 'opacity-50'}`}
-            onClick={() => handleTabClick(tab.key as string)}
+            onClick={() => handleTabClick(tab.key as T)}
           >
             {tab.label1}
             <span className={`${tab.className} text-sm`}>{tab.label2}</span>
