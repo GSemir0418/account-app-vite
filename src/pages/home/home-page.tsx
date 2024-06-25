@@ -1,8 +1,6 @@
 import React, { useMemo, useState } from 'react'
-import { Link } from 'react-router-dom'
 import useSWR from 'swr'
 import { getSummaryWithTags } from '../../services/tag'
-import { TagCard } from './components/tag-card'
 import { AddButton } from './components/add-button'
 import { DatePickerDrawer } from './components/date-picker-drawer'
 import { Popover } from './components/popover'

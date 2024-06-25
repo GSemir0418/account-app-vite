@@ -65,17 +65,17 @@ export const Tab: React.FC<Props> = ({ tabList }) => {
   }, [])
 
   const handleTabClick = (key: string) => {
-    document.getElementById(tabList.find(tab => tab.key === key)?.key as string)?.scrollIntoView({ behavior: 'smooth' })
+    document.getElementById(tabList.find(tab => tab.key === key)?.key as string)?.scrollIntoView({ behavior: 'smooth', block: 'end' })
     setActiveKey(key)
   }
 
   return (
     <div className="flex-1 flex flex-col">
-      <div className="w-full flex justify-between px-8 mb-2 text-sm text-zinc-400">
+      <div className="w-full flex justify-between px-8 mb-2 text-lg text-zinc-400">
         {tabList.map(tab => (
           <span
             key={tab.key}
-            className={`${activeKey === tab.key ? ' border-b-2 border-teal-200 text-zinc-600' : ''}`}
+            className={`${activeKey === tab.key ? ' border-b-2 border-teal-200 text-zinc-600 text-xl' : ''}`}
             onClick={() => handleTabClick(tab.key as string)}
           >
             {tab.label1}
