@@ -1,5 +1,5 @@
 import type { ChangeEvent, FormEvent } from 'react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import EmojiPicker from 'emoji-picker-react'
 import type { MouseDownEvent } from 'emoji-picker-react/dist/config/config'
@@ -75,6 +75,13 @@ export const TagForm: React.FC<Props> = () => {
   const handleEmojiClick = () => {
     setEmojiPickerVisible(!emojiPickerVisible)
   }
+
+  useEffect(() => {
+    return () => {
+      if (editTag)
+        setEditTag(null)
+    }
+  }, [])
 
   return (
     <div className="h-full flex flex-col items-center mr-4 ml-4">
